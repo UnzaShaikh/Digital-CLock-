@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <title>Digital Clock</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background-color: #030303;
+        }
+
+        p {
+            display: inline-block;
+        }
+
+        .datetime {
+            width: 500px;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            border: 3px solid #f72b84;
+            border-radius: 10px;
+            -webkit-box-reflect: below 1px linear-gradient(transparent, rgba(255, 255, 255, 0.1));
+            transition: 0.5s;
+            transition-property: background-color, box-shadow;
+            font-family: 'Staatliches', cursive;
+        }
+
+        .date {
+            font-size: 20px;
+            letter-spacing: 2px;
+            font-weight: 300;
+            text-align: center;
+        }
+
+        .time {
+            height: 115px;
+            font-size: 100px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .time span:not(:last-child) {
+            position: relative;
+            text-align: center;
+        }
+
+        .time :nth-child(4) {
+            background-color: #f9004d;
+            font-size: 25px;
+            font-weight: 500;
+            margin-right: 6px;
+            padding: 2px;
+            border-radius: 2px;
+            margin-left: 10px;
+        }
+
+        .datetime:hover {
+            background-color: #f72b84;
+            box-shadow: 0 0 30px #f72b84;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="datetime">
+        <div class="date">
+            <p><span id="day"></span>,</p>
+            <p><span id="dte"></span></p>
+            <p><span id="month"></span>,</p>
+            <p><span id="year"></span></p>
+        </div>
+        <div class="time">
+            <p><span id="hrs"></span>:</p>
+            <p><span id="mins">:</span>:</p>
+            <p><span id="secs"></span></p>
+            <p><span id="period"></span></p>
+        </div>
+    </div>
+    <script>
+        function displaydate() {
+            //date
+            const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday"];
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            let date = new Date();
+            let dte = date.getDate();
+            document.getElementById('dte').innerHTML = dte;
+            let year = date.getFullYear();
+            document.getElementById('year').innerHTML = year;
+            let month = months[date.getMonth()];
+            document.getElementById('month').innerHTML = month;
+            let day = weekday[date.getDay()];
+            document.getElementById('day').innerHTML = day;
+        }
+        displaydate();
+        function displaytime() {
+            // time
+            let time = new Date();
+            let hrs = time.getHours();
+            document.getElementById('hrs').innerHTML = hrs;
+            let mins = time.getMinutes();
+            document.getElementById('mins').innerHTML = mins;
+            let secs = time.getSeconds();
+            document.getElementById('secs').innerHTML = secs;
+            if ((hrs >= 0) && (hrs < 12)) {
+                let period = "AM";
+                document.getElementById('period').innerHTML = period;
+            }
+            else if ((hrs >= 12) && (hrs <= 24)) {
+                let period = "PM";
+                document.getElementById('period').innerHTML = period;
+            }
+        }
+        displaytime();
+        updatetime = setInterval(displaytime, 1000);
+    </script>
+</body>
+
+</html>
